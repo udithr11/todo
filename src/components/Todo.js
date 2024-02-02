@@ -10,7 +10,7 @@ const TodoApp = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [todo]);
+  }, [todos]);
 
   const addTodo = () => {
     if (todo) {
