@@ -5,6 +5,7 @@ import { MdFileDownloadDone } from "react-icons/md";
 const TodoApp = () => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [editId,setEditId]= useState()
   const inputRef = useRef("null");
 
   useEffect(() => {
@@ -15,6 +16,12 @@ const TodoApp = () => {
     if (todo) {
       setTodos([...todos, {list:todo,id:Date.now(),status:false}]);
       setTodo("");
+    }
+    if(editId){
+        const edit=todos.find((t)=>t.id===editId);
+        const updatetodo= todos.map((t)=>t.id===edit.id?(t={id:t.id,status:false,list:todo}):(t={id:t.id,status:false,list:t.list}))
+        setTodos(updatetodo)
+        setEditId()
     }
   };
 
@@ -36,7 +43,13 @@ const TodoApp = () => {
         t.id === id ? { ...t, status: !t.status } : t
       )
     );
-  };
+  }
+
+  const onEdit=(id)=>{
+    const editTodo=todos.find((t)=>t.id === id)
+    setTodo(editTodo.list);
+    setEditId(editTodo.id)
+  }
 
   return (
     <div className="w-[40%] mt-20 bg-slate-200 mx-auto p-5 rounded-sm">
@@ -57,7 +70,7 @@ const TodoApp = () => {
           className="mx-1 p-1 bg-black border font-semibold text-white rounded-sm border-black"
           onClick={addTodo}
         >
-          Add
+          {editId?'Edit':'Add'}
         </button>
       </div>
       <ul className="mt-3 ">
@@ -74,6 +87,7 @@ const TodoApp = () => {
                 className="text-blue-900 mx-1"
                 id="edit"
                 title="edit"
+                onClick={() =>onEdit(todo.id)}
               />
               <MdDelete
                 className="text-red-400 mx-1"
