@@ -33,7 +33,7 @@ const TodoApp = () => {
   const onDone = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((t) =>
-        t.id === id ? { ...t, status: true } : t
+        t.id === id ? { ...t, status: !t.status } : t
       )
     );
   };
