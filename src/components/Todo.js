@@ -45,9 +45,12 @@ const TodoApp = () => {
 
   const onEdit=(id)=>{
     const editTodo=todos.find((t)=>t.id === id)
-    setTodo(editTodo.list);
-    setEditId(editTodo.id)
-  }
+    if (!editTodo.status) {
+        setTodo(editTodo.list);
+        setEditId(editTodo.id);
+      } else {
+        alert("You cannot edit a completed item.");
+  }}
 
   return (
     <div className="w-[40%] mt-20 bg-slate-200 mx-auto p-5 rounded-sm">
