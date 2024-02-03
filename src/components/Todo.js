@@ -19,7 +19,7 @@ const TodoApp = () => {
     }
     if(editId){
         const edit=todos.find((t)=>t.id===editId);
-        const updatetodo= todos.map((t)=>t.id===edit.id?(t={id:t.id,status:false,list:todo}):(t={id:t.id,status:false,list:t.list}))
+        const updatetodo= todos.map((t)=>t.id===edit.id?(t={id:t.id,status:t.status,list:todo}):(t={id:t.id,status:t.status,list:t.list}))
         setTodos(updatetodo)
         setEditId()
     }
@@ -45,12 +45,9 @@ const TodoApp = () => {
 
   const onEdit=(id)=>{
     const editTodo=todos.find((t)=>t.id === id)
-    if (!editTodo.status) {
         setTodo(editTodo.list);
         setEditId(editTodo.id);
-      } else {
-        alert("You cannot edit a completed item.");
-  }}
+  }
 
   return (
     <div className="w-[40%] mt-20 bg-slate-200 mx-auto p-5 rounded-sm">
